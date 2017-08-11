@@ -29,9 +29,14 @@ def _worker_loop(id, path_filter, url_queue, output_queue, busy_flag, save_path,
         
         busy_flag.value |= 1 << id
         print('%d Fetching' % id, url)
-        with urllib.request.urlopen(url) as response:
-            html = response.read()
-        soup = BeautifulSoup(html, 'html5lib')
+
+        try:
+            with urllib.request.urlopen(url) as response:
+                html = response.read()
+            soup = BeautifulSoup(html, 'html5lib')
+        except:
+            print('%d Error fetching' % id, url)
+            logging.error('Fetch Error: %s' % url)
 
         parser = Parser(soup)
         serializer = Serializer(url, parser, save_path=save_path)
@@ -43,7 +48,7 @@ def _worker_loop(id, path_filter, url_queue, output_queue, busy_flag, save_path,
                 serializer.save()
         except:
             print('%d Error parsing' % id, url)
-            logging.error(url)
+            logging.error('Parse Error: %s' % url)
 
 
         items = soup.find_all('a', {'href': query_pattern})
