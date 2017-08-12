@@ -172,3 +172,6 @@ occasional background tasks.
 ```
 
 I believe that using embeddings built from this dataset as well as using [more specific ones](http://ai2-website.s3.amazonaws.com/publications/multivex.pdf) can improve the accuracy in overall. Another could be to generate more verbose descriptions from the structure data in order to match better answers.
+
+# Dataset
+A dump of the reference section of Android developer documentation can be found [here](https://drive.google.com/open?id=0B6t5LFX-DwSXYmhRbkJQWE9ybHM). It is in the basic JSON format. I'll be adding dumps of the more verbose training and guide sections soon.
